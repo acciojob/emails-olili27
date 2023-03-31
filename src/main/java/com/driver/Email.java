@@ -44,7 +44,7 @@ public class Email {
 
         if (newPassword.length() < 8) return false;
 
-        for (int index = 0; index < password.length(); index++) {
+        for (int index = 0; index < newPassword.length(); index++) {
             char ch = password.charAt(index);
 
             if (Character.isUpperCase(ch)) hasUpperCase = true;
