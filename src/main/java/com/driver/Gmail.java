@@ -22,7 +22,7 @@ public class Gmail extends Email {
         // If the inbox is full, move the oldest mail in the inbox to trash and add the new mail to inbox.
         Mail newEmail = new Mail(date, sender,message);
 
-        if (inbox.size() != 0 && inbox.size() == this.inboxCapacity) {
+        if (this.inboxCapacity != 0 && inbox.size() == this.inboxCapacity) {
             Mail oldestMail = inbox.get(0);
             trash.add(oldestMail);
             inbox.remove(0);
