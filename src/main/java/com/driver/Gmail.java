@@ -22,7 +22,7 @@ public class Gmail extends Email {
         // If the inbox is full, move the oldest mail in the inbox to trash and add the new mail to inbox.
         Mail newEmail = new Mail(date, sender,message);
 
-        if (this.inboxCapacity != 0 && inbox.size() == this.inboxCapacity) {
+        if (inbox.size() == this.inboxCapacity) {
             Mail oldestMail = inbox.get(0);
             trash.add(oldestMail);
             inbox.remove(0);
@@ -47,7 +47,7 @@ public class Gmail extends Email {
 
     public String findLatestMessage(){
         // If the inbox is empty, return null
-        if (inbox == null) return null;
+        if (inbox.isEmpty()) return null;
 
         // Else, return the message of the latest mail present in the inbox
         return inbox.get(inbox.size() - 1).getMessage();
@@ -55,7 +55,7 @@ public class Gmail extends Email {
 
     public String findOldestMessage(){
         // If the inbox is empty, return null
-        if (inbox == null) return null;
+        if (inbox.isEmpty()) return null;
 
         // Else, return the message of the oldest mail present in the inbox
         return inbox.get(0).getMessage();
