@@ -7,7 +7,7 @@ public class Gmail extends Email {
     int inboxCapacity; //maximum number of mails inbox can store
 
     //Inbox: Stores mails. Each mail has date (Date), sender (String), message (String). It is guaranteed that message is distinct for all mails.
-    LinkedList<Mail> inbox;
+    List<Mail> inbox;
 
     //Trash: Stores mails. Each mail has date (Date), sender (String), message (String)
     List<Mail> trash;
@@ -15,7 +15,7 @@ public class Gmail extends Email {
     public Gmail(String emailId, int inboxCapacity) {
         super(emailId);
         this.inboxCapacity = inboxCapacity;
-        this.inbox = new LinkedList<>();
+        this.inbox = new ArrayList<>();
         this.trash = new ArrayList<>();
     }
 
@@ -24,9 +24,9 @@ public class Gmail extends Email {
         Mail newEmail = new Mail(date, sender,message);
 
         if (inbox.size() == this.inboxCapacity) {
-
-            Mail oldestMail = inbox.remove();
+            Mail oldestMail = inbox.get(0);
             trash.add(oldestMail);
+            inbox.remove(0);
         }
 
         inbox.add(newEmail);
@@ -50,7 +50,7 @@ public class Gmail extends Email {
         if (inbox == null) return null;
 
         // Else, return the message of the latest mail present in the inbox
-        return inbox.getLast().getMessage();
+        return inbox.get(inbox.size() - 1).getMessage();
     }
 
     public String findOldestMessage(){
@@ -58,13 +58,14 @@ public class Gmail extends Email {
         if (inbox == null) return null;
 
         // Else, return the message of the oldest mail present in the inbox
-        return inbox.getFirst().getMessage();
+        return inbox.get(0).getMessage();
     }
 
     public int findMailsBetweenDates(Date start, Date end){
         //find number of mails in the inbox which are received between given dates
         //It is guaranteed that start date <= end date
         int numberOfMails = 0;
+
         for (Mail mail: inbox) {
             int check1 = start.compareTo(mail.getDate());
             int check2 = mail.getDate().compareTo(end);
@@ -90,11 +91,6 @@ public class Gmail extends Email {
     public void emptyTrash(){
         // clear all mails in the trash
        if (trash != null) {
-
-//           for (int i = 0; i <= trash.size(); i++) {
-//               Mail mail = trash.get(i);
-//               trash.remove(mail);
-//           }
            trash.removeAll(trash);
        }
     }
